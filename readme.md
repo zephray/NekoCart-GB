@@ -7,7 +7,7 @@ A Gameboy Flash Cartridge powered by STM32 instead of CPLD/FPGA.
 
 ### Project status
 
-Working in progress.
+Suspended.
 
 ### Hardware
 
