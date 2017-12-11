@@ -3,18 +3,15 @@ NekoCart
 
 ### Overview
 
-A Gameboy Flash Cartridge powered by STM32 instead of CPLD/FPGA.
+An over-powered Gameboy Flash Cartridge.
 
 ### Project status
 
-Suspended.
+Working in progress.
 
 ### Hardware
 
- * Main Processor: STM32F407VGT6
- * RAM: 192KB Internal + IS62LV1024LL SRAM (or FRAM alternative)
- * ROM: 1MB Internal + S29AL032D NOR
- * Expansion: TF card slot
+ * FPGA: Xilinx Spartan 6
 
 ### Licenses
 
@@ -22,6 +19,6 @@ GNU GPLv3
 
 ### Contact me
 
-Webstie: http://www.zephray.com
+Webstie: https://sites.psu.edu/wenting
 
-Email: i@zephray.com or zephray@outlook.com
+Email: zephray@outlook.com
