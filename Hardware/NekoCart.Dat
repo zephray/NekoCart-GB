@@ -1,0 +1,24 @@
+Field=Comment~String~Comment~100|Field=Description~String~Description~100|Field=Designator~String~Designator~100|Field=Footprint~String~Footprint~100|Field=LibRef~String~LibRef~100|Field=Quantity~Integer~Quantity~100|ReportField=Currency~<none>|ReportField=ProductionQuantity~1|ReportField=ProjectFileName~NekoCart.PrjPCB|ReportField=ProjectFullPath~C:\Users\ZephRay\Documents\Hardware\NekoCart\NekoCart.PrjPCB|ReportField=Title~Bill of Materials For Project [NekoCart.PrjPCB] (No PCB Document Selected)|ReportField=TotalQuantity~37|ReportField=ReportTime~14:10:28|ReportField=ReportDate~2016/12/10|ReportField=ReportDateTime~2016/12/10 14:10:28|ReportField=OutputName~Bill of Materials|ReportField=OutputType~BOM_PartType|ReportField=GeneratorName~BOM|ReportField=GeneratorDescription~Bill of Materials|ReportField=VariantName~None|ReportField=Address1~www.zephray.com|ReportField=Address2~zephray@outlook.com|ReportField=Address3~|ReportField=Address4~|ReportField=Application_BuildNumber~|ReportField=ApprovedBy~|ReportField=Author~|ReportField=CheckedBy~|ReportField=CompanyName~|ReportField=CurrentDate~|ReportField=CurrentTime~|ReportField=Date~|ReportField=DocumentFullPathAndName~|ReportField=DocumentName~NekoCart|ReportField=DocumentNumber~1|ReportField=DrawnBy~ZephRay|ReportField=Engineer~ZephRay|ReportField=ImagePath~|ReportField=ModifiedDate~|ReportField=Organization~|ReportField=ProjectName~NekoCart|ReportField=Revision~R1|ReportField=Rule~|ReportField=SheetNumber~1|ReportField=SheetTotal~|ReportField=Time~|ReportField=Title~NekoCart Schematic|ReportField=DataSourceFileName~NekoCart.PrjPCB|ReportField=DataSourceFullPath~C:\Users\ZephRay\Documents\Hardware\NekoCart\NekoCart.PrjPCB
+104|Capacitor (Semiconductor SIM Model)|C8, C9, C10, C11, C14|1608[0603]|Cap Semi|5
+2.2uF|Capacitor (Semiconductor SIM Model)|C12, C13|1608[0603]|Cap Semi|2
+22pF|Capacitor (Semiconductor SIM Model)|C15, C16|1608[0603]|Cap Semi|2
+12pF|Capacitor (Semiconductor SIM Model)|C17, C18|1608[0603]|Cap Semi|2
+4.7uF||C19|1608[0603]|EC|1
+GBCart||CART|GB_CART|GBCart|1
+USB-MINIAB||CON200|USB-MICRO|USB-MINIAB|1
+TF||CON300|TF-2|TF|1
+1N4148||DA|0805D|1N4148|1
+Header 4|Header, 4-Pin|DEBUG|HDR1X4|Header 4|1
+BLM21PG221SN1|EMI Suppression Filters,2A,0805|L200|0805|BEAD__FERRITE|1
+10K|Resistor|R1, R7|J1-0603|Res3|2
+0R|Resistor|R12|J1-0603|Res3|1
+22R|Resistor|R200, R201|J1-0603|Res3|2
+47K|Resistor|R300, R301, R302, R303, R304|J1-0603|Res3|5
+SW-PB|Switch|SW-ISP|SOP2|SW-PB|1
+STM32F407VG|ARM Cortex-M3 Microcontroller|U1|100T1_L|STM32F407VG|1
+6209||U102|SOT-23|6209|1
+SN74LVTH162245||U400, U401|TSOP48|SN74LVTH162245|2
+S29AL032D||U403|TSOP40|S29AL032D|1
+IS62LV1024LL||U404|TSOP32|IS62LV1024LL|1
+25M||X1|XS-3225|XTALS|1
+32.768K||X3|FC-135|CRYSTAL|1
