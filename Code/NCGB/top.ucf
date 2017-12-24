@@ -1,0 +1,38 @@
+
+#Created by Constraints Editor (xc2c64-vq44-5) - 2017/12/24
+NET "GB_WR" TNM_NET = GB_WR;
+TIMESPEC TS_GB_WR = PERIOD "GB_WR" 1 MHz LOW 50%;
+
+NET "*" IOSTANDARD = "LVCMOS33";
+
+NET "GB_A<15>"  LOC = "P18";
+NET "GB_A<14>"  LOC = "P19";
+NET "GB_A<13>"  LOC = "P20";
+NET "GB_A<12>"  LOC = "P21";
+NET "GB_D<7>"   LOC = "P30";
+NET "GB_D<6>"   LOC = "P31";
+NET "GB_D<5>"   LOC = "P32";
+NET "GB_D<4>"   LOC = "P33";
+NET "GB_D<3>"   LOC = "P34";
+NET "GB_D<2>"   LOC = "P36";
+NET "GB_D<1>"   LOC = "P37";
+NET "GB_D<0>"   LOC = "P38";
+NET "GB_CS"     LOC = "P16";
+NET "GB_RD"     LOC = "P29";
+NET "GB_WR"     LOC = "P27";
+NET "GB_RST"    LOC = "P28";
+NET "ROM_A<22>" LOC = "P1";
+NET "ROM_A<21>" LOC = "P2";
+NET "ROM_A<20>" LOC = "P3";
+NET "ROM_A<19>" LOC = "P40";
+NET "ROM_A<18>" LOC = "P39";
+NET "ROM_A<17>" LOC = "P14";
+NET "ROM_A<16>" LOC = "P8";
+NET "ROM_A<15>" LOC = "P6";
+NET "ROM_A<14>" LOC = "P5";
+NET "RAM_A<16>" LOC = "P43";
+NET "RAM_A<15>" LOC = "P42";
+NET "RAM_A<14>" LOC = "P44";
+NET "RAM_A<13>" LOC = "P41";
+NET "ROM_CS"    LOC = "P23";
+NET "RAM_CS"    LOC = "P16";
