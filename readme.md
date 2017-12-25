@@ -3,7 +3,7 @@ NekoCart
 
 ### Overview
 
-An over-powered Gameboy Flash Cartridge.
+Gameboy Flash Cartridge using CPLD as MBC.
 
 ### Project status
 
@@ -11,7 +11,7 @@ Working in progress.
 
 ### Hardware
 
- * FPGA: Xilinx Spartan 6
+Xilinx XC2C32A CPLD + 8MiB NOR (MX29LV640) + 128KiB SRAM (IS62LV1024)
 
 ### Licenses
 
