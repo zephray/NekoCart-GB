@@ -36,3 +36,5 @@ NET "RAM_A<14>" LOC = "P44";
 NET "RAM_A<13>" LOC = "P41";
 NET "ROM_CS"    LOC = "P23";
 NET "RAM_CS"    LOC = "P16";
+NET "DDIR"      LOC = "P13";
+NET "DEBUG"     LOC = "P12";
