@@ -54,13 +54,19 @@ assign rom_addr_lo =  (gb_addr >= 16'h0000)&(gb_addr <= 16'h3FFF); //Request Add
 assign ROM_CS = ((rom_addr_en) & (GB_RST == 1)) ? 0 : 1; //ROM output enable
 //assign ROM_CS = 1;
 assign RAM_CS = ((ram_addr_en) & (ram_en) & (GB_RST == 1)) ? 0 : 1; //RAM output enable
+//assign RAM_CS = 1;
 
 assign ROM_A[22:14] = rom_addr_lo ? 9'b0 : rom_bank[8:0];
 assign RAM_A[16:13] = ram_bank[3:0];
 
-assign DDIR = (((rom_addr_en) | (rom_addr_en))&(GB_WR)) ? 1 : 0;
+//LOW: GB->CART, HIGH: CART->GB
+// ADDR_EN GB_WR DIR
+// 0       x     L
+// 1       H     H
+// 1       L     L
+assign DDIR = (((rom_addr_en) | (ram_addr_en))&(GB_WR)) ? 1 : 0;
 
-//assign GB_D[7:0] = DDIR ? (8'h55) : 8'bz;
+//assign GB_D[7:0] = DDIR ? (8'h00) : 8'bz;
 
 wire rom_bank_lo_clk;
 wire rom_bank_hi_clk;
@@ -70,7 +76,7 @@ assign rom_bank_lo_clk = (!GB_WR) & (gb_addr == 16'h2000);
 assign rom_bank_hi_clk = (!GB_WR) & (gb_addr == 16'h3000);
 assign ram_bank_clk = (!GB_WR) & ((gb_addr == 16'h4000) | (gb_addr == 16'h5000));
 assign ram_en_clk = (!GB_WR) & ((gb_addr == 16'h0000) | (gb_addr == 16'h1000));
-assign DEBUG = rom_bank_lo_clk & GB_D[0];
+assign DEBUG = (rom_addr_en) | (ram_addr_en);
 
 always@(negedge rom_bank_lo_clk, negedge GB_RST)
 begin

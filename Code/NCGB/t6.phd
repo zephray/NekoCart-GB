@@ -1,0 +1,182 @@
+" XPLAOPT Version 9.99.99.99
+" Created on Mon Jan 29 21:57:40 2018
+" 31 Mcells, 32 PLApts, 2 Levels, 39 Fanins
+" XPLAOPT -run s -it b -i top.blx -dev XC2C32A-4VQ44 -reg -xor a -mode 1 -th 28 
+"         -fi 32 -bfi 38 -pre keep -unused keeper -terminate keeper -no_output_files 
+MODULE top
+
+	DDIR  pin 13 ;  " 1 pt.
+ 	DEBUG  pin 12 ;  " 1 pt.
+ 	GB_A<12>  pin 21 ; 
+ 	GB_A<13>  pin 20 ; 
+ 	GB_A<14>  pin 19 ; 
+ 	GB_A<15>  pin 18 ; 
+ 	GB_D<0>  pin 38 ; 
+ 	GB_D<1>  pin 37 ; 
+ 	GB_D<2>  pin 36 ; 
+ 	GB_D<3>  pin 34 ; 
+ 	GB_D<4>  pin 33 ;  " 1 pt.
+ 	GB_D<5>  pin 32 ;  " 1 pt.
+ 	GB_D<6>  pin 31 ;  " 1 pt.
+ 	GB_D<7>  pin 30 ;  " 1 pt.
+ 	GB_RST  pin 28 ; 
+ 	GB_WR  pin 27 ; 
+ 	RAM_A<13>  pin 41 ;  " 1 pt.
+ 	RAM_A<14>  pin 44 ;  " 1 pt.
+ 	RAM_A<15>  pin 42 ;  " 1 pt.
+ 	RAM_A<16>  pin 43 ;  " 1 pt.
+ 	RAM_CS  pin 16 ;  " 1 pt.
+ 	ROM_A<14>  pin 5 ;  " 1 pt.
+ 	ROM_A<15>  pin 6 ;  " 1 pt.
+ 	ROM_A<16>  pin 8 ;  " 1 pt.
+ 	ROM_A<17>  pin 14 ;  " 1 pt.
+ 	ROM_A<18>  pin 39 ;  " 1 pt.
+ 	ROM_A<19>  pin 40 ;  " 1 pt.
+ 	ROM_A<20>  pin 3 ;  " 1 pt.
+ 	ROM_A<21>  pin 2 ;  " 1 pt.
+ 	ROM_A<22>  pin 1 ;  " 1 pt.
+ 	ROM_CS  pin 23 ;  " 1 pt.
+ 
+
+	N_PZ_92  node istype 'collapse';  " 2 pt.
+ 	rom_bank<0>  node ;  " 1 pt.
+ 	rom_bank<1>  node ;  " 1 pt.
+ 	rom_bank<2>  node ;  " 1 pt.
+ 	rom_bank<3>  node ;  " 1 pt.
+ 	rom_bank<4>  node ;  " 1 pt.
+ 	rom_bank<5>  node ;  " 1 pt.
+ 	rom_bank<6>  node ;  " 1 pt.
+ 	rom_bank<7>  node ;  " 1 pt.
+ 	rom_bank<8>  node ;  " 1 pt.
+ 
+
+xpla property 'USER_SLEW_RATE GB_D<4> DDIR GB_D<5> GB_D<6> GB_D<7> RAM_A<13> RAM_A<14> RAM_A<15> 
+	RAM_A<16> ROM_A<14> ROM_A<15> ROM_A<16> ROM_A<17> ROM_A<18> ROM_A<19> ROM_A<20> ROM_A<21> 
+	ROM_A<22> ROM_CS RAM_CS DEBUG '; 
+xpla property 'TERMINATE_KEEPER GB_D<4> GB_D<5> GB_D<6> GB_D<7> '; 
+xpla property 'unused_keeper'; 
+xpla property 'timespec  GB_D<4>.Q rom_bank<4>.D 665.000000'; 
+xpla property 'timespec  GB_D<5>.Q rom_bank<5>.D 665.000000'; 
+xpla property 'timespec  GB_D<6>.Q rom_bank<6>.D 665.000000'; 
+xpla property 'timespec  GB_D<7>.Q rom_bank<7>.D 665.000000'; 
+xpla property 'IOSTD GB_A<13> 0 -1';
+xpla property 'IOSTD GB_WR 0 -1';
+xpla property 'IOSTD GB_A<15> 0 -1';
+xpla property 'IOSTD GB_A<14> 0 -1';
+xpla property 'IOSTD GB_A<12> 0 -1';
+xpla property 'IOSTD GB_D<4> 0 -1';
+xpla property 'IOSTD GB_D<0> 0 -1';
+xpla property 'IOSTD GB_RST 0 -1';
+xpla property 'IOSTD DDIR 0 -1';
+xpla property 'IOSTD GB_D<5> 0 -1';
+xpla property 'IOSTD GB_D<1> 0 -1';
+xpla property 'IOSTD GB_D<6> 0 -1';
+xpla property 'IOSTD GB_D<2> 0 -1';
+xpla property 'IOSTD GB_D<7> 0 -1';
+xpla property 'IOSTD GB_D<3> 0 -1';
+xpla property 'IOSTD RAM_A<13> 0 -1';
+xpla property 'IOSTD RAM_A<14> 0 -1';
+xpla property 'IOSTD RAM_A<15> 0 -1';
+xpla property 'IOSTD RAM_A<16> 0 -1';
+xpla property 'IOSTD ROM_A<14> 0 -1';
+xpla property 'IOSTD ROM_A<15> 0 -1';
+xpla property 'IOSTD ROM_A<16> 0 -1';
+xpla property 'IOSTD ROM_A<17> 0 -1';
+xpla property 'IOSTD ROM_A<18> 0 -1';
+xpla property 'IOSTD ROM_A<19> 0 -1';
+xpla property 'IOSTD ROM_A<20> 0 -1';
+xpla property 'IOSTD ROM_A<21> 0 -1';
+xpla property 'IOSTD ROM_A<22> 0 -1';
+xpla property 'IOSTD ROM_CS 0 -1';
+xpla property 'IOSTD RAM_CS 0 -1';
+xpla property 'IOSTD DEBUG 0 -1';
+EQUATIONS 
+
+ DDIR = GB_WR & !GB_A<15>;		"--- [PT=1, FI=2, LVL=1] ---
+ DEBUG = 1;
+ GB_D<4>.AR = !GB_RST;		"--- [PT=1, FI=1, LVL=1] ---
+! GB_D<4>.CLK = !GB_A<13> & !GB_WR & !GB_A<15> & GB_A<14>
+    ;		"--- [PT=1, FI=4, LVL=1] ---
+ GB_D<4>.D = GB_D<0>;		"--- [PT=1, FI=1, LVL=1] ---
+ GB_D<4>.OE = GB_WR & !GB_A<15>;		"--- [PT=1, FI=2, LVL=1] ---
+ GB_D<5>.AR = !GB_RST;		"--- [PT=1, FI=1, LVL=1] ---
+! GB_D<5>.CLK = !GB_A<13> & !GB_WR & !GB_A<15> & GB_A<14>
+    ;		"--- [PT=1, FI=4, LVL=1] ---
+ GB_D<5>.D = GB_D<1>;		"--- [PT=1, FI=1, LVL=1] ---
+ GB_D<5>.OE = GB_WR & !GB_A<15>;		"--- [PT=1, FI=2, LVL=1] ---
+ GB_D<6>.AR = !GB_RST;		"--- [PT=1, FI=1, LVL=1] ---
+! GB_D<6>.CLK = !GB_A<13> & !GB_WR & !GB_A<15> & GB_A<14>
+    ;		"--- [PT=1, FI=4, LVL=1] ---
+ GB_D<6>.D = GB_D<2>;		"--- [PT=1, FI=1, LVL=1] ---
+ GB_D<6>.OE = GB_WR & !GB_A<15>;		"--- [PT=1, FI=2, LVL=1] ---
+ GB_D<7>.AR = !GB_RST;		"--- [PT=1, FI=1, LVL=1] ---
+! GB_D<7>.CLK = !GB_A<13> & !GB_WR & !GB_A<15> & GB_A<14>
+    ;		"--- [PT=1, FI=4, LVL=1] ---
+ GB_D<7>.D = GB_D<3>;		"--- [PT=1, FI=1, LVL=1] ---
+ GB_D<7>.OE = GB_WR & !GB_A<15>;		"--- [PT=1, FI=2, LVL=1] ---
+ N_PZ_92 = GB_A<14>
+      # GB_A<15>;		"--- [PT=2, FI=2, LVL=1] ---
+ RAM_A<13>.AR = !GB_RST;		"--- [PT=1, FI=1, LVL=1] ---
+! RAM_A<13>.CLK = !GB_A<13> & !GB_WR & !GB_A<15> & GB_A<14>
+    ;		"--- [PT=1, FI=4, LVL=1] ---
+ RAM_A<13>.D = GB_D<0>;		"--- [PT=1, FI=1, LVL=1] ---
+ RAM_A<14>.AR = !GB_RST;		"--- [PT=1, FI=1, LVL=1] ---
+! RAM_A<14>.CLK = !GB_A<13> & !GB_WR & !GB_A<15> & GB_A<14>
+    ;		"--- [PT=1, FI=4, LVL=1] ---
+ RAM_A<14>.D = GB_D<1>;		"--- [PT=1, FI=1, LVL=1] ---
+ RAM_A<15>.AR = !GB_RST;		"--- [PT=1, FI=1, LVL=1] ---
+! RAM_A<15>.CLK = !GB_A<13> & !GB_WR & !GB_A<15> & GB_A<14>
+    ;		"--- [PT=1, FI=4, LVL=1] ---
+ RAM_A<15>.D = GB_D<2>;		"--- [PT=1, FI=1, LVL=1] ---
+ RAM_A<16>.AR = !GB_RST;		"--- [PT=1, FI=1, LVL=1] ---
+! RAM_A<16>.CLK = !GB_A<13> & !GB_WR & !GB_A<15> & GB_A<14>
+    ;		"--- [PT=1, FI=4, LVL=1] ---
+ RAM_A<16>.D = GB_D<3>;		"--- [PT=1, FI=1, LVL=1] ---
+ RAM_CS = 1;
+ ROM_A<14> = rom_bank<0>.Q & N_PZ_92;		"--- [PT=1, FI=2, LVL=2] ---
+ ROM_A<15> = rom_bank<1>.Q & N_PZ_92;		"--- [PT=1, FI=2, LVL=2] ---
+ ROM_A<16> = rom_bank<2>.Q & N_PZ_92;		"--- [PT=1, FI=2, LVL=2] ---
+ ROM_A<17> = rom_bank<3>.Q & N_PZ_92;		"--- [PT=1, FI=2, LVL=2] ---
+ ROM_A<18> = rom_bank<4>.Q & N_PZ_92;		"--- [PT=1, FI=2, LVL=2] ---
+ ROM_A<19> = rom_bank<5>.Q & N_PZ_92;		"--- [PT=1, FI=2, LVL=2] ---
+ ROM_A<20> = rom_bank<6>.Q & N_PZ_92;		"--- [PT=1, FI=2, LVL=2] ---
+ ROM_A<21> = rom_bank<7>.Q & N_PZ_92;		"--- [PT=1, FI=2, LVL=2] ---
+ ROM_A<22> = rom_bank<8>.Q & N_PZ_92;		"--- [PT=1, FI=2, LVL=2] ---
+ ROM_CS = 1;
+ rom_bank<0>.AP = !GB_RST;		"--- [PT=1, FI=1, LVL=1] ---
+! rom_bank<0>.CLK = GB_A<13> & !GB_WR & !GB_A<12> & !N_PZ_92
+    ;		"--- [PT=1, FI=4, LVL=2] ---
+ rom_bank<0>.D = GB_D<0>;		"--- [PT=1, FI=1, LVL=1] ---
+ rom_bank<1>.AR = !GB_RST;		"--- [PT=1, FI=1, LVL=1] ---
+! rom_bank<1>.CLK = GB_A<13> & !GB_WR & !GB_A<12> & !N_PZ_92
+    ;		"--- [PT=1, FI=4, LVL=2] ---
+ rom_bank<1>.D = GB_D<1>;		"--- [PT=1, FI=1, LVL=1] ---
+ rom_bank<2>.AR = !GB_RST;		"--- [PT=1, FI=1, LVL=1] ---
+! rom_bank<2>.CLK = GB_A<13> & !GB_WR & !GB_A<12> & !N_PZ_92
+    ;		"--- [PT=1, FI=4, LVL=2] ---
+ rom_bank<2>.D = GB_D<2>;		"--- [PT=1, FI=1, LVL=1] ---
+ rom_bank<3>.AR = !GB_RST;		"--- [PT=1, FI=1, LVL=1] ---
+! rom_bank<3>.CLK = GB_A<13> & !GB_WR & !GB_A<12> & !N_PZ_92
+    ;		"--- [PT=1, FI=4, LVL=2] ---
+ rom_bank<3>.D = GB_D<3>;		"--- [PT=1, FI=1, LVL=1] ---
+ rom_bank<4>.AR = !GB_RST;		"--- [PT=1, FI=1, LVL=1] ---
+! rom_bank<4>.CLK = GB_A<13> & !GB_WR & !GB_A<12> & !N_PZ_92
+    ;		"--- [PT=1, FI=4, LVL=2] ---
+ rom_bank<4>.D = GB_D<4>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ rom_bank<5>.AR = !GB_RST;		"--- [PT=1, FI=1, LVL=1] ---
+! rom_bank<5>.CLK = GB_A<13> & !GB_WR & !GB_A<12> & !N_PZ_92
+    ;		"--- [PT=1, FI=4, LVL=2] ---
+ rom_bank<5>.D = GB_D<5>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ rom_bank<6>.AR = !GB_RST;		"--- [PT=1, FI=1, LVL=1] ---
+! rom_bank<6>.CLK = GB_A<13> & !GB_WR & !GB_A<12> & !N_PZ_92
+    ;		"--- [PT=1, FI=4, LVL=2] ---
+ rom_bank<6>.D = GB_D<6>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ rom_bank<7>.AR = !GB_RST;		"--- [PT=1, FI=1, LVL=1] ---
+! rom_bank<7>.CLK = GB_A<13> & !GB_WR & !GB_A<12> & !N_PZ_92
+    ;		"--- [PT=1, FI=4, LVL=2] ---
+ rom_bank<7>.D = GB_D<7>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ rom_bank<8>.AR = !GB_RST;		"--- [PT=1, FI=1, LVL=1] ---
+! rom_bank<8>.CLK = GB_A<13> & !GB_WR & GB_A<12> & !N_PZ_92
+    ;		"--- [PT=1, FI=4, LVL=2] ---
+ rom_bank<8>.D = GB_D<0>;		"--- [PT=1, FI=1, LVL=1] ---
+END
