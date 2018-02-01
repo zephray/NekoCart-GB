@@ -64,7 +64,9 @@ assign RAM_A[16:13] = ram_bank[3:0];
 // 0       x     L
 // 1       H     H
 // 1       L     L
-assign DDIR = (((rom_addr_en) | (ram_addr_en))&(GB_WR)) ? 1 : 0;
+//assign DDIR = (((rom_addr_en) | (ram_addr_en))&(GB_WR)) ? 1 : 0;
+// (ROM_CS = 0 | RAM_CS = 0) & RD = 0 -> output, otherwise, input
+assign DDIR = (((!ROM_CS) | (!RAM_CS)) & (!GB_RD)) ? 1 : 0;
 
 //assign GB_D[7:0] = DDIR ? (8'h00) : 8'bz;
 
@@ -76,7 +78,7 @@ assign rom_bank_lo_clk = (!GB_WR) & (gb_addr == 16'h2000);
 assign rom_bank_hi_clk = (!GB_WR) & (gb_addr == 16'h3000);
 assign ram_bank_clk = (!GB_WR) & ((gb_addr == 16'h4000) | (gb_addr == 16'h5000));
 assign ram_en_clk = (!GB_WR) & ((gb_addr == 16'h0000) | (gb_addr == 16'h1000));
-assign DEBUG = (rom_addr_en) | (ram_addr_en);
+assign DEBUG = GB_D[0];
 
 always@(negedge rom_bank_lo_clk, negedge GB_RST)
 begin
