@@ -22,17 +22,17 @@ module top(
     //Gameboy Interface
     input [15:12] GB_A,
     input [7:0] GB_D,
-	 input GB_CS,
-	 input GB_WR,
+    input GB_CS,
+    input GB_WR,
     input GB_RD,
-	 input GB_RST,
-	 //RAM&ROM Interface
+    input GB_RST,
+    //RAM&ROM Interface
     output [22:14] ROM_A,
     output [16:13] RAM_A,
     output ROM_CS,
     output RAM_CS,
-	 output DDIR,
-	 output DEBUG
+    output DDIR,
+    output DEBUG
     );
 
 reg [8:0] rom_bank;
@@ -120,7 +120,8 @@ begin
     ram_en <= 1'b0;
   end
   else begin
-    ram_en <= (GB_D[7:0] == 8'h0A) ? 1 : 0;
+    //A real MBC doesn't seem to care about high bits
+    ram_en <= (GB_D[3:0] == 4'hA) ? 1 : 0;
   end
 end
 
