@@ -22,22 +22,25 @@ module top(
     //Gameboy Interface
     input [15:12] GB_A,
     input [7:0] GB_D,
-    input GB_CS,
-    input GB_WR,
+	 input GB_CS,
+	 input GB_WR,
     input GB_RD,
-    input GB_RST,
-    //RAM&ROM Interface
+	 output GB_RST,
+	 //input GB_RST,
+	 //RAM&ROM Interface
     output [22:14] ROM_A,
     output [16:13] RAM_A,
     output ROM_CS,
     output RAM_CS,
-    output DDIR,
-    output DEBUG
+	 output DDIR,
+	 output DEBUG
     );
 
-reg [8:0] rom_bank;
-reg [3:0] ram_bank;
-reg ram_en; // RAM Access Enable
+reg [8:0] rom_bank = 9'b000000001;
+reg [3:0] ram_bank = 4'b0;
+reg ram_en = 1'b0; // RAM Access Enable
+
+assign GB_RST = 1;
 
 wire rom_addr_en;//RW Address in ROM range
 wire ram_addr_en;//RW Address in RAM range
@@ -78,51 +81,26 @@ assign rom_bank_lo_clk = (!GB_WR) & (gb_addr == 16'h2000);
 assign rom_bank_hi_clk = (!GB_WR) & (gb_addr == 16'h3000);
 assign ram_bank_clk = (!GB_WR) & ((gb_addr == 16'h4000) | (gb_addr == 16'h5000));
 assign ram_en_clk = (!GB_WR) & ((gb_addr == 16'h0000) | (gb_addr == 16'h1000));
-assign DEBUG = GB_D[0];
+assign DEBUG = rom_bank[0];
 
-always@(negedge rom_bank_lo_clk, negedge GB_RST)
+always@(negedge rom_bank_lo_clk)
 begin
-  if (GB_RST==0)
-  begin
-    rom_bank[7:0] <= 8'b00000001;
-  end
-  else begin
-    rom_bank[7:0] <= GB_D[7:0];
-  end
+  rom_bank[7:0] <= GB_D[7:0];
 end
 
-always@(negedge rom_bank_hi_clk, negedge GB_RST)
+always@(negedge rom_bank_hi_clk)
 begin
-  if (GB_RST==0)
-  begin
-    rom_bank[8] <= 1'b0;
-  end
-  else begin
-    rom_bank[8] <= GB_D[0];
-  end
+  rom_bank[8] <= GB_D[0];
 end
 
-always@(negedge ram_bank_clk, negedge GB_RST)
+always@(negedge ram_bank_clk)
 begin
-  if (GB_RST==0)
-  begin
-    ram_bank[3:0] <= 4'b0000;
-  end
-  else begin
-    ram_bank[3:0] <= GB_D[3:0];
-  end
+  ram_bank[3:0] <= GB_D[3:0];
 end
 
-always@(negedge ram_en_clk, negedge GB_RST)
+always@(negedge ram_en_clk)
 begin
-  if (GB_RST==0)
-  begin
-    ram_en <= 1'b0;
-  end
-  else begin
-    //A real MBC doesn't seem to care about high bits
-    ram_en <= (GB_D[3:0] == 4'hA) ? 1 : 0;
-  end
+  ram_en <= (GB_D[7:0] == 8'h0A) ? 1 : 0;
 end
 
 endmodule
