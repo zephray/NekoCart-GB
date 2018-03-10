@@ -55,9 +55,7 @@ assign ram_addr_en =  (gb_addr >= 16'hA000)&(gb_addr <= 16'hBFFF); //Request Add
 assign rom_addr_lo =  (gb_addr >= 16'h0000)&(gb_addr <= 16'h3FFF); //Request Addr in LoROM range
 
 assign ROM_CS = ((rom_addr_en) & (GB_RST == 1)) ? 0 : 1; //ROM output enable
-//assign ROM_CS = 1;
 assign RAM_CS = ((ram_addr_en) & (ram_en) & (GB_RST == 1)) ? 0 : 1; //RAM output enable
-//assign RAM_CS = 1;
 
 assign ROM_A[22:14] = rom_addr_lo ? 9'b0 : rom_bank[8:0];
 assign RAM_A[16:13] = ram_bank[3:0];
@@ -70,8 +68,6 @@ assign RAM_A[16:13] = ram_bank[3:0];
 //assign DDIR = (((rom_addr_en) | (ram_addr_en))&(GB_WR)) ? 1 : 0;
 // (ROM_CS = 0 | RAM_CS = 0) & RD = 0 -> output, otherwise, input
 assign DDIR = (((!ROM_CS) | (!RAM_CS)) & (!GB_RD)) ? 1 : 0;
-
-//assign GB_D[7:0] = DDIR ? (8'h00) : 8'bz;
 
 wire rom_bank_lo_clk;
 wire rom_bank_hi_clk;
@@ -100,7 +96,7 @@ end
 
 always@(negedge ram_en_clk)
 begin
-  ram_en <= (GB_D[7:0] == 8'h0A) ? 1 : 0;
+  ram_en <= (GB_D[3:0] == 4'hA) ? 1 : 0; //A real MBC only care about low bits
 end
 
 endmodule
