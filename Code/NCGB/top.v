@@ -25,26 +25,22 @@ module top(
     input GB_CS,
     input GB_WR,
     input GB_RD,
-    output GB_RST,
     //input GB_RST,
     //RAM&ROM Interface
     output [22:14] ROM_A,
     output [16:13] RAM_A,
     output ROM_CS,
     output RAM_CS,
-    output DDIR,
-    output DEBUG
+    output DDIR
     );
 
 reg [8:0] rom_bank = 9'b000000001;
-reg [3:0] ram_bank = 4'b0;
+reg [4:0] ram_bank = 5'b0;
 reg ram_en = 1'b0; // RAM Access Enable
 
 //reg bank_mask_wen = 1'b0; // Write Enable for Bank Mask
 reg game_sel_en = 1'b0;
 reg [1:0] game_sel;
-
-assign GB_RST = 1;
 
 wire rom_addr_en;//RW Address in ROM range
 wire ram_addr_en;//RW Address in RAM range
@@ -58,8 +54,8 @@ assign rom_addr_en =  (gb_addr >= 16'h0000)&(gb_addr <= 16'h7FFF); //Request Add
 assign ram_addr_en =  (gb_addr >= 16'hA000)&(gb_addr <= 16'hBFFF); //Request Addr in RAM range
 assign rom_addr_lo =  (gb_addr >= 16'h0000)&(gb_addr <= 16'h3FFF); //Request Addr in LoROM range
 
-assign ROM_CS = ((rom_addr_en) & (GB_RST == 1)) ? 0 : 1; //ROM output enable
-assign RAM_CS = ((ram_addr_en) & (ram_en) & (GB_RST == 1)) ? 0 : 1; //RAM output enable
+assign ROM_CS = (rom_addr_en) ? 0 : 1; //ROM output enable
+assign RAM_CS = ((ram_addr_en) & (ram_en) & (ram_bank[4] == 1'b0)) ? 0 : 1; //RAM output enable
 
 wire [22:14] rom_a_pre;
 assign rom_a_pre[22:14] = rom_addr_lo ? 9'b0 : rom_bank[8:0];
@@ -85,12 +81,14 @@ wire rom_bank_lo_clk;
 wire rom_bank_hi_clk;
 wire ram_bank_clk;
 wire ram_en_clk;
-wire bank_mask_clk;
+wire game_en_clk;
+wire game_sel_clk;
 assign rom_bank_lo_clk = (!GB_WR) & (gb_addr == 16'h2000);
 assign rom_bank_hi_clk = (!GB_WR) & (gb_addr == 16'h3000);
 assign ram_bank_clk = (!GB_WR) & ((gb_addr == 16'h4000) | (gb_addr == 16'h5000));
 assign ram_en_clk = (!GB_WR) & ((gb_addr == 16'h0000) | (gb_addr == 16'h1000));
-assign bank_mask_clk = (!GB_WR) & (gb_addr == 16'h7000);
+assign game_en_clk = (!GB_WR) & (gb_addr == 16'hA000) & (ram_bank[4] == 1'b1);
+assign game_sel_clk = (!GB_WR) & (gb_addr == 16'hB000) & (ram_bank[4] == 1'b1);
 
 always@(negedge rom_bank_lo_clk)
 begin
@@ -105,6 +103,10 @@ end
 always@(negedge ram_bank_clk)
 begin
     ram_bank[3:0] <= GB_D[3:0];
+    if (!game_sel_en)
+        ram_bank[4] <= GB_D[4];
+    else
+        ram_bank[4] <= 1'b0;
 end
 
 always@(negedge ram_en_clk)
@@ -112,16 +114,14 @@ begin
     ram_en <= (GB_D[3:0] == 4'hA) ? 1 : 0; //A real MBC only care about low bits
 end
 
-always@(negedge bank_mask_clk)
+always@(negedge game_en_clk)
 begin
-    if (game_sel_en == 1'b1) begin
-        game_sel[1:0] <= GB_D[1:0];
-    end
-    else
-    begin
-        if (GB_D[3:0] == 4'hA) // magic number for bank switch
-            game_sel_en <= 1'b1;
-    end
+   game_sel_en <= GB_D[0];
+end
+
+always@(negedge game_sel_clk)
+begin
+   game_sel[1:0] <= GB_D[1:0];
 end
 
 endmodule
