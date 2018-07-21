@@ -41,9 +41,11 @@ TileData:
 ; ****************************************************************************************
 begin:
     nop
-    di
     ld    sp, $ffff       ; set the stack pointer to highest mem location + 1
+    push  hl
     push  af
+    push  de
+    push  bc
     cp    a, $11          ; check if the gameboy is in cgb mode
     jr    z, .init_cgb
 .init_dmg:
@@ -260,6 +262,8 @@ begin:
     bit   7, h
     jr    nz, .clear_vram_loop
 
+.direct
+
     ; restore mbc rom bank settings
     ld    hl, $2000
     ld    [hl], $01
@@ -282,12 +286,12 @@ begin:
     ld    [$ff40], a
 
     ; restore register values
+    pop   bc
+    pop   de
     pop   af
     ;ld    bc, $0013
     ;ld    de, $00d8
     ld    hl, $a000      ; this is not default value, this is for mulitcart mode en
-    ld    bc, $0000
-    ld    de, $ff56
     
     ; jump to internal ram
     jp    $ff80
@@ -343,8 +347,9 @@ Ldr_start:
     ld    hl, $4000
     ld    [hl], $00
     ;ld    hl, $014d
-    ld    hl, $000d
+    pop   hl
     ld    sp, $fffe
+    ;ei
     jp    $100
 Ldr_end:
 
