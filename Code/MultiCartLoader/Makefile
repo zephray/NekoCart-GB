@@ -14,7 +14,8 @@ endif
 
 RGBASM_FLAGS =
 RGBLINK_FLAGS = -n $(ROM_NAME).sym -m $(ROM_NAME).map -p $(FILLER)
-RGBFIX_FLAGS = -jcv -t $(TITLE) -n $(ROMVERSION) -p $(FILLER) -k 00 -l 0x33 -m 0x1B -r 0x04
+RGBFIX_DMG_FLAGS = -jv -t $(TITLE) -n $(ROMVERSION) -p $(FILLER) -k 00 -l 0x33 -m 0x1B -r 0x04
+RGBFIX_CGB_FLAGS = -jcv -t $(TITLE) -n $(ROMVERSION) -p $(FILLER) -k 00 -l 0x33 -m 0x1B -r 0x04
 
 CFLAGS = -O3 -std=c11 -Wall -Wextra -pedantic
 
@@ -32,10 +33,10 @@ all: ldr
 
 ldr: FILLER = 0x00
 ldr: ROM_NAME = $(NAME)-$(VERSION)
-ldr: $(NAME)-$(VERSION).gb
+ldr: $(NAME)-$(VERSION).gb $(NAME)-$(VERSION).gbc
 
 clean:
-	$(RM) $(ldr_obj) $(wildcard $(NAME)-*.gb) $(wildcard $(NAME)-*.map) $(wildcard $(NAME)-*.sym)
+	$(RM) $(ldr_obj) $(wildcard $(NAME)-*.gb) $(wildcard $(NAME)-*.gbc) $(wildcard $(NAME)-*.map) $(wildcard $(NAME)-*.sym)
 
 %.o: %.asm
 	$(RGBDS_DIR)rgbasm $(RGBASM_FLAGS) -o $@ $<
@@ -43,4 +44,9 @@ clean:
 .gb:
 %.gb: $(ldr_obj)
 	$(RGBDS_DIR)rgblink $(RGBLINK_FLAGS) -o $@ $^
-	$(RGBDS_DIR)rgbfix $(RGBFIX_FLAGS) $@
+	$(RGBDS_DIR)rgbfix $(RGBFIX_DMG_FLAGS) $@
+
+.gbc:
+%.gbc: $(ldr_obj)
+	$(RGBDS_DIR)rgblink $(RGBLINK_FLAGS) -o $@ $^
+	$(RGBDS_DIR)rgbfix $(RGBFIX_CGB_FLAGS) $@
