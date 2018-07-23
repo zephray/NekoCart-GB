@@ -78,7 +78,7 @@ mem_Copy::
 
 ;***************************************************************************
 ;*
-;* mem_Copy - "Copy" a monochrome font from ROM to RAM
+;* mem_CopyMono - "Copy" a monochrome font from ROM to RAM
 ;*
 ;* input:
 ;*   hl - pSource
